@@ -1,0 +1,193 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Stock ROWA</title>
+<style>
+  :root {
+    --fondo: #f2f4f6; --tarjeta: #ffffff; --texto: #15181c; --suave: #67707d;
+    --linea: #dfe3e8; --raya: #f7f9fa; --acento: #14568f;
+    --hay: #0d6b3a; --no: #a33028; --barra: #f2f4f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #12151a; --tarjeta: #1b1f26; --texto: #e9ecf1; --suave: #98a1af;
+      --linea: #2b313a; --raya: #20252d; --acento: #74b0f0;
+      --hay: #56cf8d; --no: #ff8a7f; --barra: #12151a;
+    }
+  }
+  :root[data-theme="light"] {
+    --fondo: #f2f4f6; --tarjeta: #ffffff; --texto: #15181c; --suave: #67707d;
+    --linea: #dfe3e8; --raya: #f7f9fa; --acento: #14568f;
+    --hay: #0d6b3a; --no: #a33028; --barra: #f2f4f6;
+  }
+  :root[data-theme="dark"] {
+    --fondo: #12151a; --tarjeta: #1b1f26; --texto: #e9ecf1; --suave: #98a1af;
+    --linea: #2b313a; --raya: #20252d; --acento: #74b0f0;
+    --hay: #56cf8d; --no: #ff8a7f; --barra: #12151a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fondo); color: var(--texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px; line-height: 1.35; -webkit-text-size-adjust: 100%;
+  }
+  .envoltorio { max-width: 900px; margin: 0 auto; padding: 0 10px 60px; }
+  header { padding: 16px 0 10px; }
+  h1 { font-size: 1.35rem; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .fecha {
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+    background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px;
+    padding: 11px 13px;
+  }
+  .fecha .dato { font-size: 1.08rem; font-weight: 650; }
+  .fecha .etiqueta { font-size: .78rem; color: var(--suave); text-transform: uppercase; letter-spacing: .04em; }
+  .antiguedad { margin-top: 5px; font-size: .88rem; color: var(--suave); width: 100%; }
+  .antiguedad.viejo { color: var(--no); font-weight: 600; }
+  .barra { position: sticky; top: 0; z-index: 20; padding: 9px 0; background: var(--barra); }
+  input[type="search"] {
+    width: 100%; padding: 11px 13px; font-size: 1rem; color: var(--texto);
+    background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 10px;
+  }
+  .filtros { display: flex; gap: 8px; margin-top: 8px; }
+  .filtros button {
+    padding: 7px 13px; font-size: .88rem; color: var(--texto);
+    background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 999px;
+    cursor: pointer; white-space: nowrap;
+  }
+  .filtros button[aria-pressed="true"] {
+    background: var(--acento); border-color: var(--acento); color: #fff; font-weight: 600;
+  }
+  h2 {
+    font-size: .95rem; font-weight: 700; letter-spacing: .02em;
+    margin: 24px 0 8px; padding-left: 2px;
+  }
+  h2 small { font-weight: 400; color: var(--suave); font-size: .82rem; margin-left: 6px; }
+  .caja {
+    background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+  th, td { padding: 8px 10px; text-align: right; white-space: nowrap; }
+  thead th {
+    font-size: .7rem; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--suave); font-weight: 600; border-bottom: 1px solid var(--linea);
+    background: var(--tarjeta); position: sticky; top: 0;
+  }
+  tbody tr:nth-child(even) { background: var(--raya); }
+  tbody td { border-bottom: 1px solid var(--linea); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .art {
+    text-align: left; position: sticky; left: 0; z-index: 2;
+    background: inherit; min-width: 150px; white-space: normal;
+  }
+  thead .art { z-index: 3; background: var(--tarjeta); }
+  tbody .art { font-weight: 600; }
+  .art small { display: block; font-weight: 400; color: var(--suave); font-size: .78rem; }
+  .num { font-variant-numeric: tabular-nums; }
+  .cant { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.02rem; }
+  .cant.hay { color: var(--hay); }
+  .cant.no { color: var(--no); }
+  .grupo { border-left: 1px solid var(--linea); }
+  .vacio { padding: 26px 0; text-align: center; color: var(--suave); }
+  footer { margin-top: 26px; font-size: .82rem; color: var(--suave); }
+  footer p { margin: 6px 0; }
+</style>
+
+<div class="envoltorio">
+  <header>
+    <h1>Stock ROWA</h1>
+    <div class="fecha">
+      <span class="etiqueta">Informe del</span>
+      <span class="dato">lunes 3 de agosto</span>
+      <span class="antiguedad" id="antiguedad"></span>
+    </div>
+  </header>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Filtrar por producto o código (opcional)" autocomplete="off">
+    <div class="filtros">
+      <button id="verTodo" aria-pressed="true">Ver todo</button>
+      <button id="soloStock" aria-pressed="false">Solo con stock</button>
+    </div>
+  </div>
+
+  <main id="lista"></main>
+
+  <footer>
+    <p>64 productos · 36 con stock inmediato. Las tablas se deslizan hacia el costado para ver el resto de las columnas.</p>
+    <p>El stock cambia todos los días: ante una venta importante, reconfirmar con Planta Escobar.</p>
+    <p>Generado el 03/08/2026 18:02 a partir del mail de Mauro Mercuri (Comercio Exterior).<br>Archivo: Disponibilidad 03-08-26 - ROWA Línea VARIO - CPm - PR60 - GPR - SUB 4.xlsx</p>
+  </footer>
+</div>
+
+<script>
+const SECCIONES = [{"titulo": "MINI RW9", "productos": [{"nombre": "MINI RW9", "codigo": "0020-0021", "stock": 115, "datos": {}, "arribos": {"Agosto Semana 1": "2560", "Oct Semana 1": "1920", "Nov Semana 1": "1920", "Nov Semana 4": "1920", "Dic Semana 3": "1920"}}], "columnas": [], "columnas_arribo": ["Agosto Semana 1", "Oct Semana 1", "Nov Semana 1", "Nov Semana 4", "Dic Semana 3"]}, {"titulo": "CPm - PR60", "productos": [{"nombre": "CPm 130", "codigo": "0019-0027", "stock": 204, "datos": {"Tensión": "220", "HP": "0.5", "Altura": "22", "Caudal": "5.4", "Conexión": "1\"", "Pedido": "35"}, "arribos": {"Agosto Semana 1": "800", "Oct Semana 2": "744"}}, {"nombre": "CPm 146", "codigo": "0019-0028", "stock": 0, "datos": {"Tensión": "220", "HP": "0.75", "Altura": "26", "Caudal": "5.6", "Conexión": "1\"", "Pedido": "51"}, "arribos": {"Agosto Semana 1": "749", "Agosto Semana 2": "1000", "Nov Semana 1": "1000"}}, {"nombre": "CPm 158", "codigo": "0019-0029", "stock": 0, "datos": {"Tensión": "220", "HP": "1", "Altura": "32", "Caudal": "5.8", "Conexión": "1\"", "Pedido": "39"}, "arribos": {"Agosto Semana 1": "761", "Agosto Semana 2": "1000", "Nov Semana 1": "1000"}}, {"nombre": "PR 60", "codigo": "0019-0033", "stock": 215, "datos": {"Tensión": "220", "HP": "0.5", "Altura": "33", "Caudal": "2.4", "Conexión": "1\"", "Pedido": "43"}, "arribos": {"Agosto Semana 1": "1000", "Oct Semana 2": "960", "Nov Semana 1": "960"}}], "columnas": ["Tensión", "HP", "Altura", "Caudal", "Conexión", "Pedido"], "columnas_arribo": ["Agosto Semana 1", "Oct Semana 2", "Agosto Semana 2", "Nov Semana 1"]}, {"titulo": "RW DRAIN", "productos": [{"nombre": "RW DRAIN 1300 PLUS", "codigo": "0023-0125", "stock": 74, "datos": {"Tensión": "220", "HP": "1.8", "Altura": "14", "Caudal": "22", "Conexión": "2\"", "Pedido": "6"}, "arribos": {"Agosto Semana 1": "200", "Agosto Semana 4": "460", "Oct Semana 3": "460"}}, {"nombre": "RW DRAIN 800 PLUS", "codigo": "0023-0126", "stock": 255, "datos": {"Tensión": "220", "HP": "1", "Altura": "11", "Caudal": "22.5", "Conexión": "2\"", "Pedido": "1"}, "arribos": {"Agosto Semana 1": "260", "Agosto Semana 4": "200", "Oct Semana 3": "200"}}, {"nombre": "RW DRAIN 1500 ULTRA", "codigo": "0023-0127", "stock": 0, "datos": {"Tensión": "220", "HP": "2", "Altura": "18.5", "Caudal": "32.5", "Pedido": "18"}, "arribos": {"Agosto Semana 2": "82", "Agosto Semana 4": "150", "Sep Semana 4": "150", "Oct Semana 3": "250"}}, {"nombre": "RW DRAIN 2200 PLUS", "codigo": "0023-0128", "stock": 0, "datos": {"Tensión": "380", "HP": "3", "Altura": "24", "Caudal": "33", "Pedido": "4"}, "arribos": {"Agosto Semana 2": "96", "Oct Semana 3": "150"}}, {"nombre": "RW DRAIN M 750 INOX F", "codigo": "0023-0114", "stock": 603, "datos": {"Tensión": "220", "HP": "1", "Altura": "9", "Caudal": "14", "Conexión": "1\"1/2", "Pedido": "3"}, "arribos": {"Oct Semana 3": "1200"}}, {"nombre": "RW DRAIN M 1150 INOX F", "codigo": "0023-0129", "stock": 0, "datos": {"Tensión": "220", "HP": "1.5", "Altura": "9", "Caudal": "15", "Pedido": "0"}, "arribos": {"Agosto Semana 4": "800", "Sep Semana 4": "800", "Oct Semana 3": "400"}}, {"nombre": "RW DRAIN Q 400 F", "codigo": "0023-0115", "stock": 1072, "datos": {"Tensión": "220", "HP": "0.5", "Altura": "8", "Caudal": "7.5", "Conexión": "1\"1/4", "Pedido": "12"}, "arribos": {"Oct Semana 3": "400"}}, {"nombre": "RW DRAIN T 18/6-F", "codigo": "0023-0105", "stock": 90, "datos": {"Tensión": "220", "HP": "0.5", "Altura": "18", "Caudal": "6", "Conexión": "1\"", "Pedido": "5"}, "arribos": {"Oct Semana 3": "200"}}], "columnas": ["Tensión", "HP", "Altura", "Caudal", "Conexión", "Pedido"], "columnas_arribo": ["Agosto Semana 1", "Agosto Semana 4", "Oct Semana 3", "Agosto Semana 2", "Sep Semana 4"]}, {"titulo": "SUB 4\"", "productos": [{"nombre": "SUB 4RW 2/8G-M", "codigo": "0023-0117", "stock": 0, "datos": {"Tensión": "220", "HP": "0.5", "Altura": "58", "Caudal": "4", "Conexión": "1\"1/4", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 3/9G-M", "codigo": "0023-0118", "stock": 0, "datos": {"Tensión": "220", "HP": "0.75", "Altura": "65", "Caudal": "5.3", "Conexión": "1\"1/4", "Pedido": "0"}, "arribos": {"Nov Semana 2": "100"}}, {"nombre": "SUB 4RW 4/8G-M", "codigo": "0023-0104", "stock": 6, "datos": {"Tensión": "220", "HP": "1", "Altura": "51", "Caudal": "7.2", "Conexión": "1\"1/4", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 6/8 G-M", "codigo": "0023-0108", "stock": 0, "datos": {"Tensión": "220", "HP": "1", "Altura": "53", "Caudal": "8.4", "Conexión": "1\"1/2", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 4/10 G-M", "codigo": "0023-0135", "stock": 0, "datos": {"Tensión": "220", "HP": "1", "Altura": "68", "Caudal": "6.5", "Pedido": "0"}, "arribos": {"Nov Semana 2": "100"}}, {"nombre": "SUB 4RW COMP 56/7-M", "codigo": "0023-0116", "stock": 156, "datos": {"Tensión": "220", "HP": "1.1", "Altura": "53", "Caudal": "6.2", "Conexión": "1\"1/4", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 8/9 G-M", "codigo": "0023-0109", "stock": 42, "datos": {"Tensión": "220", "HP": "1.5", "Altura": "57", "Caudal": "10.8", "Conexión": "2\"", "Pedido": "2"}, "arribos": {}}, {"nombre": "SUB 4RW 4/12 G-M", "codigo": "0023-0113", "stock": 0, "datos": {"Tensión": "220", "HP": "1.5", "Altura": "89", "Caudal": "6", "Conexión": "1\"1/4", "Pedido": "1"}, "arribos": {}}, {"nombre": "SUB 4RW 4/14 G-M", "codigo": "0023-0113", "stock": 0, "datos": {"Tensión": "220", "HP": "1.5", "Altura": "98", "Caudal": "6.6", "Pedido": "0"}, "arribos": {"Nov Semana 2": "100"}}, {"nombre": "SUB 4RW 12/8G-M", "codigo": "0023-0112", "stock": 59, "datos": {"Tensión": "220", "HP": "2", "Altura": "53", "Caudal": "16.2", "Conexión": "1\"1/4", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 6/8 G-T", "codigo": "0023-0110", "stock": 107, "datos": {"Tensión": "380", "HP": "1", "Altura": "53", "Caudal": "8.4", "Conexión": "1\"1/2", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 8/9 G-T", "codigo": "0023-0111", "stock": 41, "datos": {"Tensión": "380", "HP": "1.5", "Altura": "57", "Caudal": "10.8", "Conexión": "2\"", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 6/14G-T", "codigo": "0023-0119", "stock": 0, "datos": {"Tensión": "380", "HP": "2", "Altura": "103", "Caudal": "10", "Conexión": "1\"1/2", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 8/18G-T", "codigo": "0023-0120", "stock": 0, "datos": {"Tensión": "380", "HP": "3", "Altura": "118", "Caudal": "12", "Conexión": "2\"", "Pedido": "0"}, "arribos": {"Nov Semana 2": "50"}}, {"nombre": "SUB 4RW 10/18G-T", "codigo": "0023-0121", "stock": 1, "datos": {"Tensión": "380", "HP": "4", "Altura": "113", "Caudal": "14", "Conexión": "2\"", "Pedido": "1"}, "arribos": {"Nov Semana 2": "25"}}, {"nombre": "SUB 4RW 12/20G-T", "codigo": "0023-0122", "stock": 17, "datos": {"Tensión": "380", "HP": "5.5", "Altura": "127", "Caudal": "18", "Conexión": "2\"", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 16/20G-T", "codigo": "0023-0123", "stock": 14, "datos": {"Tensión": "380", "HP": "7.5", "Altura": "120", "Caudal": "21", "Conexión": "2\"", "Pedido": "0"}, "arribos": {}}, {"nombre": "SUB 4RW 16/24G-T", "codigo": "0023-0124", "stock": 2, "datos": {"Tensión": "380", "HP": "10", "Altura": "145", "Caudal": "19.5", "Conexión": "2\"", "Pedido": "0"}, "arribos": {}}], "columnas": ["Tensión", "HP", "Altura", "Caudal", "Conexión", "Pedido"], "columnas_arribo": ["Nov Semana 2"]}, {"titulo": "GPR ROWA", "productos": [{"nombre": "1-20/MULTI EVO-E 5-40P", "codigo": "0024-0002", "stock": 0, "datos": {"Tensión": "220", "HP": "2 X 1,3 hp", "Altura": "45", "Caudal": "14", "Pedido": "0"}, "arribos": {}}, {"nombre": "1-20/MULTI EVO-E 8-40", "codigo": "0024-0001", "stock": 2, "datos": {"Tensión": "220", "HP": "2 X 2,1 hp", "Altura": "46", "Caudal": "24", "Pedido": "0"}, "arribos": {}}, {"nombre": "1-20 MULTINOX VE+ 8-50", "codigo": "0024-0003", "stock": 0, "datos": {"Tensión": "220", "HP": "2 X 2 hp", "Altura": "57", "Caudal": "25", "Pedido": "1"}, "arribos": {}}, {"nombre": "3-20 MULTINOX VE+ 6-50", "codigo": "0024-0070", "stock": 0, "datos": {"Tensión": "380", "HP": "2 X 1,5 hp", "Altura": "59", "Caudal": "17", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-20 MULTINOX VE+ 8-50", "codigo": "0024-0004", "stock": 0, "datos": {"Tensión": "380", "HP": "2 X 2 hp", "Altura": "57", "Caudal": "25", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-20 MULTINOX VE+ 8-70", "codigo": "0024-0005", "stock": 0, "datos": {"Tensión": "380", "HP": "2 X 2,5 hp", "Altura": "80", "Caudal": "25", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-20 MULTINOX VE+ 8-90", "codigo": "0024-0006", "stock": 0, "datos": {"Tensión": "380", "HP": "2 X 4 hp", "Altura": "109", "Caudal": "25", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-20 MULTINOX VE+ 8-120", "codigo": "0024-0014", "stock": 0, "datos": {"Tensión": "380", "HP": "2 X 5,4 hp", "Altura": "139", "Caudal": "25", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-30 MULTINOX VE+ 8-50", "codigo": "0024-0090", "stock": 1, "datos": {"Tensión": "380", "HP": "3 x 2,8 hp", "Altura": "56.7", "Caudal": "38", "Pedido": "0"}, "arribos": {}}, {"nombre": "3-30 MULTINOX VE+ 8-70", "codigo": "0024-0007", "stock": 0, "datos": {"Tensión": "380", "HP": "3 X 2,5 hp", "Altura": "80", "Caudal": "38", "Pedido": "0"}, "arribos": {}}], "columnas": ["Tensión", "HP", "Altura", "Caudal", "Pedido"], "columnas_arribo": []}, {"titulo": "FLEXIBLES", "productos": [{"nombre": "1P 50CM H-M", "codigo": "0710-0022", "stock": 0, "datos": {"Pedido": "168"}, "arribos": {"Agosto Semana 2": "1332", "Oct Semana 4": "2100", "Nov Semana 4": "1020"}}, {"nombre": "1P 80CM H-M", "codigo": "0710-0023", "stock": 865, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "1000", "Nov Semana 4": "1000"}}, {"nombre": "1P 100CM H-M", "codigo": "0710-0024", "stock": 0, "datos": {"Pedido": "245"}, "arribos": {"Agosto Semana 2": "555", "Oct Semana 4": "800", "Nov Semana 4": "500"}}, {"nombre": "1 1/4P 50CM H-M", "codigo": "0710-0025", "stock": 0, "datos": {"Pedido": "0"}, "arribos": {}}, {"nombre": "1 1/4P 100CM H-M", "codigo": "0710-0026", "stock": 70, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "204"}}, {"nombre": "1 1/4P 120CM H-M", "codigo": "0710-0027", "stock": 5, "datos": {"Pedido": "18"}, "arribos": {"Oct Semana 4": "95"}}, {"nombre": "1 1/2P 50CM H-M", "codigo": "0710-0028", "stock": 66, "datos": {"Pedido": "0"}, "arribos": {"Agosto Semana 2": "50", "Oct Semana 4": "58"}}, {"nombre": "1 1/2P 100CM H-M", "codigo": "0710-0029", "stock": 57, "datos": {"Pedido": "0"}, "arribos": {"Agosto Semana 2": "50", "Oct Semana 4": "58"}}, {"nombre": "3/4P 50CM H-M", "codigo": "0710-0030", "stock": 600, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "300", "Nov Semana 4": "300"}}, {"nombre": "3/4P 80CM H-M", "codigo": "0710-0033", "stock": 0, "datos": {"Pedido": "0"}, "arribos": {"Agosto Semana 2": "1000", "Oct Semana 4": "250", "Nov Semana 4": "250"}}, {"nombre": "3/4P 30CM H-M", "codigo": "0710-0036", "stock": 119, "datos": {"Pedido": "0"}, "arribos": {"Agosto Semana 2": "500", "Oct Semana 4": "300", "Nov Semana 4": "300"}}, {"nombre": "3/4P 40CM H-M", "codigo": "0710-0039", "stock": 140, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "300", "Nov Semana 4": "300"}}, {"nombre": "1/2P 20CM M-H", "codigo": "0710-0040", "stock": 360, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "500", "Nov Semana 4": "500"}}, {"nombre": "1/2P 25CM M-H", "codigo": "0710-0041", "stock": 1730, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "500", "Nov Semana 4": "500"}}, {"nombre": "1/2P 30CM M-H", "codigo": "0710-0032", "stock": 730, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "1000", "Nov Semana 4": "1000"}}, {"nombre": "1/2P 35CM M-H", "codigo": "0710-0042", "stock": 0, "datos": {"Pedido": "660"}, "arribos": {"Oct Semana 4": "2340", "Nov Semana 4": "3000"}}, {"nombre": "1/2P 40CM M-H", "codigo": "0710-0043", "stock": 0, "datos": {"Pedido": "20"}, "arribos": {"Agosto Semana 2": "1980", "Oct Semana 4": "2000", "Nov Semana 4": "1500"}}, {"nombre": "1/2P 50CM M-H", "codigo": "0710-0044", "stock": 0, "datos": {"Pedido": "510"}, "arribos": {"Agosto Semana 2": "990", "Oct Semana 4": "1500", "Nov Semana 4": "1000"}}, {"nombre": "1/2P 30CM M - H D19MM", "codigo": "0710-0047", "stock": 550, "datos": {"Pedido": "60"}, "arribos": {"Oct Semana 4": "250", "Nov Semana 4": "250"}}, {"nombre": "1/2P 40CM M - H D19MM", "codigo": "0710-0050", "stock": 498, "datos": {"Pedido": "0"}, "arribos": {"Oct Semana 4": "250", "Nov Semana 4": "250"}}, {"nombre": "1\" X 750MM CODO/RECTO H-H", "codigo": "0710-0056", "stock": 132, "datos": {"Pedido": "0"}, "arribos": {}}, {"nombre": "1 1/4\" X 750MM CODO/RECTO H-H", "codigo": "0710-0057", "stock": 496, "datos": {"Pedido": "0"}, "arribos": {}}, {"nombre": "1 1/4\" X 320MM CODO/RECTO H-H", "codigo": "0710-0058", "stock": 466, "datos": {"Pedido": "0"}, "arribos": {}}], "columnas": ["Pedido"], "columnas_arribo": ["Agosto Semana 2", "Oct Semana 4", "Nov Semana 4"]}];
+const FECHA_INFORME = "2026-08-03";
+const lista = document.getElementById('lista');
+const buscar = document.getElementById('buscar');
+const btnSolo = document.getElementById('soloStock');
+const btnTodo = document.getElementById('verTodo');
+let soloConStock = false;
+
+if (FECHA_INFORME) {
+  const dias = Math.floor((new Date() - new Date(FECHA_INFORME + 'T12:00:00')) / 86400000);
+  const el = document.getElementById('antiguedad');
+  if (dias <= 0) el.textContent = 'Actualizado hoy';
+  else if (dias === 1) el.textContent = 'Actualizado ayer';
+  else el.textContent = 'Hace ' + dias + ' días';
+  if (dias > 8) el.classList.add('viejo');
+}
+
+function escapar(t) {
+  return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function tabla(s, productos) {
+  const cols = s.columnas, arr = s.columnas_arribo;
+  let encabezado = '<tr><th class="art">Artículo</th><th>Stock</th>';
+  encabezado += cols.map(c => `<th>${escapar(c)}</th>`).join('');
+  encabezado += arr.map((c, i) => `<th class="${i === 0 ? 'grupo' : ''}">${escapar(c)}</th>`).join('');
+  encabezado += '</tr>';
+
+  const filas = productos.map(p => {
+    let f = `<tr><td class="art">${escapar(p.nombre)}<small>${escapar(p.codigo)}</small></td>`;
+    f += `<td class="cant ${p.stock > 0 ? 'hay' : 'no'}">${p.stock}</td>`;
+    f += cols.map(c => `<td class="num">${p.datos[c] ? escapar(p.datos[c]) : '<span style="color:var(--suave)">–</span>'}</td>`).join('');
+    f += arr.map((c, i) => `<td class="num ${i === 0 ? 'grupo' : ''}">${p.arribos[c] ? escapar(p.arribos[c]) : '<span style="color:var(--suave)">–</span>'}</td>`).join('');
+    return f + '</tr>';
+  }).join('');
+
+  return `<div class="caja"><table><thead>${encabezado}</thead><tbody>${filas}</tbody></table></div>`;
+}
+
+function pintar() {
+  const texto = buscar.value.trim().toLowerCase();
+  let html = '';
+  for (const s of SECCIONES) {
+    const productos = s.productos.filter(p => {
+      if (soloConStock && p.stock <= 0) return false;
+      if (!texto) return true;
+      return (p.nombre + ' ' + p.codigo).toLowerCase().includes(texto);
+    });
+    if (!productos.length) continue;
+    const conStock = productos.filter(p => p.stock > 0).length;
+    html += `<h2>${escapar(s.titulo)}<small>${conStock} de ${productos.length} con stock</small></h2>` + tabla(s, productos);
+  }
+  lista.innerHTML = html || '<p class="vacio">No hay productos que coincidan.</p>';
+}
+
+buscar.addEventListener('input', pintar);
+btnSolo.addEventListener('click', () => {
+  soloConStock = true;
+  btnSolo.setAttribute('aria-pressed', 'true');
+  btnTodo.setAttribute('aria-pressed', 'false');
+  pintar();
+});
+btnTodo.addEventListener('click', () => {
+  soloConStock = false;
+  btnSolo.setAttribute('aria-pressed', 'false');
+  btnTodo.setAttribute('aria-pressed', 'true');
+  pintar();
+});
+pintar();
+</script>
