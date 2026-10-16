@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="es">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -28,98 +31,182 @@
     margin: 0; background: var(--fondo); color: var(--texto);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 16px; line-height: 1.35; -webkit-text-size-adjust: 100%;
+    overflow-wrap: break-word;   /* nombres larguisimos parten en vez de cortarse */
   }
-  .envoltorio { max-width: 760px; margin: 0 auto; padding: 0 16px 60px; }
-  header { padding: 16px 0 10px; }
-  h1 { font-size: 1.35rem; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .envoltorio { max-width: 760px; margin: 0 auto; padding: 0 12px 60px; }
+  header { padding: 14px 0 8px; }
+  h1 { font-size: 1.3rem; margin: 0 0 10px; letter-spacing: -0.01em; }
   .fecha {
     display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
     background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px;
     padding: 11px 13px;
   }
-  .fecha .dato { font-size: 1.05rem; font-weight: 650; }
-  .fecha .etiqueta { font-size: .78rem; color: var(--suave); text-transform: uppercase; letter-spacing: .04em; }
-  .antiguedad { margin-top: 5px; font-size: .88rem; color: var(--suave); width: 100%; }
+  .fecha .etiqueta { font-size: .76rem; color: var(--suave); text-transform: uppercase; letter-spacing: .04em; }
+  .fecha .dato { font-size: 1.02rem; font-weight: 650; }
+  .antiguedad { margin-top: 4px; font-size: .86rem; color: var(--suave); width: 100%; }
   .antiguedad.viejo { color: var(--no); font-weight: 600; }
-  .barra { position: sticky; top: 0; z-index: 20; padding: 9px 0; background: var(--barra); }
+  .resumen { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .mini {
+    font-size: .76rem; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .mini.hay { color: var(--hay); background: var(--hay-f); }
+  .mini.poco { color: var(--poco); background: var(--poco-f); }
+  .mini.no { color: var(--no); background: var(--no-f); }
+  .mini.susp { color: var(--susp); background: var(--susp-f); }
+  .barra { position: sticky; top: 0; z-index: 20; padding: 8px 0; background: var(--barra); }
   input[type="search"] {
-    width: 100%; padding: 11px 13px; font-size: 1rem; color: var(--texto);
+    width: 100%; padding: 12px 14px; font-size: 1rem; color: var(--texto);
     background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 10px;
   }
-  .filtros { display: flex; gap: 8px; margin-top: 8px; }
+  .filtros { display: flex; gap: 7px; margin-top: 7px; }
   .filtros button {
-    padding: 7px 13px; font-size: .88rem; color: var(--texto);
-    background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 999px;
-    cursor: pointer; white-space: nowrap;
+    flex: 1 1 0; min-height: 38px; padding: 7px 10px; font-size: .86rem;
+    color: var(--texto); background: var(--tarjeta); border: 1px solid var(--linea);
+    border-radius: 9px; cursor: pointer; touch-action: manipulation;
   }
   .filtros button[aria-pressed="true"] {
     background: var(--acento); border-color: var(--acento); color: #fff; font-weight: 600;
   }
   h2 {
     font-size: .95rem; font-weight: 700; letter-spacing: .02em;
-    margin: 24px 0 8px; padding-left: 2px;
+    margin: 22px 0 7px; padding-left: 2px;
   }
-  h2 small { font-weight: 400; color: var(--suave); font-size: .82rem; margin-left: 6px; }
-  .caja { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px; }
+  h2 small { font-weight: 400; color: var(--suave); font-size: .8rem; margin-left: 6px; }
+  .caja { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px; overflow: hidden; }
   .fila {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 10px 13px; border-bottom: 1px solid var(--linea);
+    display: flex; flex-wrap: wrap; align-items: flex-start;
+    justify-content: space-between; gap: 4px 10px;
+    padding: 11px 13px; border-bottom: 1px solid var(--linea);
   }
   .fila:last-child { border-bottom: 0; }
-  .prod { min-width: 0; }
-  .prod b { display: block; font-weight: 600; font-size: .93rem; }
-  .prod small { color: var(--suave); font-size: .78rem; }
-  .est { text-align: right; flex-shrink: 0; }
+  .prod { flex: 1 1 0; min-width: 0; }
+  .prod b { display: block; font-weight: 600; font-size: .95rem; }
+  .prod small { color: var(--suave); font-size: .8rem; }
   .chip {
-    display: inline-block; padding: 3px 10px; border-radius: 999px;
-    font-size: .82rem; font-weight: 700; white-space: nowrap;
+    flex: 0 0 auto; padding: 4px 11px; border-radius: 999px;
+    font-size: .84rem; font-weight: 700; white-space: nowrap;
   }
   .chip.hay { color: var(--hay); background: var(--hay-f); }
   .chip.poco { color: var(--poco); background: var(--poco-f); }
   .chip.no { color: var(--no); background: var(--no-f); }
   .chip.susp { color: var(--susp); background: var(--susp-f); }
-  .entra { display: block; margin-top: 3px; font-size: .78rem; color: var(--suave); }
+  .entra { flex: 1 1 100%; font-size: .79rem; color: var(--suave); }
   .vacio { padding: 26px 0; text-align: center; color: var(--suave); }
-  footer { margin-top: 26px; font-size: .82rem; color: var(--suave); }
+  footer { margin-top: 24px; font-size: .8rem; color: var(--suave); }
   footer p { margin: 6px 0; }
 </style>
-
+</head>
+<body>
 <div class="envoltorio">
   <header>
     <h1>Stock ROWA</h1>
     <div class="fecha">
       <span class="etiqueta">Stock del</span>
-      <span class="dato">jueves 15 de octubre, 18:00</span>
+      <span class="dato">viernes 16 de octubre, 18:00</span>
       <span class="antiguedad" id="antiguedad"></span>
     </div>
+    <div class="resumen"><span class="mini hay">78 en stock</span><span class="mini poco">41 con poco</span><span class="mini no">39 sin stock</span><span class="mini susp">6 sin venta</span></div>
   </header>
 
   <div class="barra">
-    <input type="search" id="buscar" placeholder="Buscar producto o código" autocomplete="off">
-    <div class="filtros">
-      <button id="verTodo" aria-pressed="true">Ver todo</button>
-      <button id="soloStock" aria-pressed="false">Solo con stock</button>
+    <input type="search" id="buscar" placeholder="Buscar producto o código" autocomplete="off" aria-label="Buscar producto o código">
+    <div class="filtros" role="group" aria-label="Filtros">
+      <button id="fTodo" aria-pressed="true">Todo</button>
+      <button id="fCon" aria-pressed="false">Con stock</button>
+      <button id="fSin" aria-pressed="false">Sin stock</button>
     </div>
   </div>
 
   <main id="lista"></main>
+  <noscript><p class="vacio">Para ver el stock, activá JavaScript en el navegador del celular.</p></noscript>
 
   <footer>
-    <p>164 productos · 117 con stock. "Poco": hay, pero queda poco.</p>
+    <p>164 productos. El stock cambia todos los días.</p>
     <p>La fecha de ingreso es aproximada. Ante una venta importante, reconfirmar con Planta Escobar.</p>
   </footer>
 </div>
 
 <script>
-const SECCIONES = [{"titulo": "Presuriz. de Agua Tanque Elev.", "productos": [{"nombre": "Presurizador Tango SFL 9 220V T2", "codigo": "0006-0001", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 14 220V T2", "codigo": "0006-0002", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 20 220V T2", "codigo": "0006-0003", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 24 220V", "codigo": "0006-0197", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX SFL 26 220V", "codigo": "0004-0095", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Solar 14 220V", "codigo": "0006-0109", "estado": "poco", "entra": ""}]}, {"titulo": "Presuriz. de Agua Tanque Cist.", "productos": [{"nombre": "Presurizador Tango Press 20 220V T2", "codigo": "0018-0001", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Press 20 Wifi 220V", "codigo": "0018-0056", "estado": "hay", "entra": ""}, {"nombre": "- Presurizador Tango Press 24 220V", "codigo": "0018-0054", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Press 24 Wifi 220V", "codigo": "0018-0057", "estado": "hay", "entra": ""}, {"nombre": "Presurizador GM 24 EN Tandem, 2 x Tango Press 24 220V", "codigo": "0010-0699", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 26 220V", "codigo": "0005-0265", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 26 Wifi 220V", "codigo": "0005-0791", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 30 VF 220V", "codigo": "0005-0581", "estado": "poco", "entra": ""}, {"nombre": "GM 30 VF 220V", "codigo": "0010-0696", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 40 VF 220V", "codigo": "0005-0613", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 220V", "codigo": "0005-0705", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 301 e 35L 220V", "codigo": "0005-0732", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 24L 220V", "codigo": "0005-0759", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 100L 220V", "codigo": "0005-0760", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 200L 220V", "codigo": "0005-0761", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 302 E 35L 220V", "codigo": "0005-0689", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 302 E 50/60L 220V", "codigo": "0005-0723", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 303 VF 50/60L 220V", "codigo": "0005-0690", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Maxflow 327 VF 60L 220V", "codigo": "0005-0773", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 100L 220V", "codigo": "0005-0717", "estado": "no", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 200L 220V", "codigo": "0005-0714", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 35 VF Compact 3X380V", "codigo": "0005-0682", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 360 VF Compact 3X380V", "codigo": "0005-0700", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Press 410 VF Compact 24LV 3 X 380V", "codigo": "0005-0612", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Press 410 VF Compact 60LV 3 X 380V", "codigo": "0005-0664", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Press 510 VF Compact 35LV 3 X 380V", "codigo": "0005-0729", "estado": "hay", "entra": ""}, {"nombre": "GM 350 VF 2 X 24L 220V", "codigo": "0010-0685", "estado": "poco", "entra": ""}, {"nombre": "GT 355 VF 2X24L 3X380V", "codigo": "0010-0686", "estado": "hay", "entra": ""}, {"nombre": "GT 365 VF 2 X 24L 3X380V", "codigo": "0010-0687", "estado": "no", "entra": ""}, {"nombre": "GT 415 VF 2 X 24L 3X380V", "codigo": "0010-0688", "estado": "poco", "entra": ""}, {"nombre": "GT 415 VF 2 X 60L 3X380V", "codigo": "0010-0689", "estado": "hay", "entra": ""}, {"nombre": "GT 515 VF 2 X 24/35L 3X380V", "codigo": "0010-0691", "estado": "hay", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2260 3X380V", "codigo": "0024-0102", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2280 3X380V", "codigo": "0024-0103", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2350 3X380V", "codigo": "0024-0104", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3260 3X380V", "codigo": "0024-0105", "estado": "poco", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3280 3X380V", "codigo": "0024-0106", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3350 3X380V", "codigo": "0024-0107", "estado": "poco", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2260 3X380V", "codigo": "0024-0108", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2280 3X380V", "codigo": "0024-0109", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2350 3X380V", "codigo": "0024-0110", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3260 3X380V", "codigo": "0024-0111", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3280 3X380V", "codigo": "0024-0112", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3350 3X380V", "codigo": "0024-0113", "estado": "no", "entra": ""}]}, {"titulo": "Electrob. Elevadoras y Recirc.", "productos": [{"nombre": "Electrobomba 5/1 3V Sanit. 220V", "codigo": "0002-0004", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 5/1 Sanit. Tempo 220V", "codigo": "0002-0489", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Sanit. 220V", "codigo": "0002-0006", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 Sanit. Tempo 220V", "codigo": "0002-0490", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Sanit. 220V", "codigo": "0002-0008", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 Sanit. Tempo 220V", "codigo": "0002-0491", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Sanit. 220V", "codigo": "0002-0013", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Sanit. 380V", "codigo": "0002-0017", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Sanit. 220V", "codigo": "0002-0014", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Sanit. 380V", "codigo": "0002-0018", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Sanit. 220V", "codigo": "0002-0015", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Sanit. 380V", "codigo": "0002-0019", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 25/1 Sanit. 380V", "codigo": "0017-0089", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 4/1 3V Calef. 220V", "codigo": "0001-0001", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 5/1 3V Calef. 220V", "codigo": "0001-0004", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Calef. 220V", "codigo": "0001-0009", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Normalizada 220V", "codigo": "0001-0007", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Calef. 220V", "codigo": "0001-0013", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Normalizada 220V", "codigo": "0001-0011", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Calef. 220V", "codigo": "0001-0017", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Calef. 380V", "codigo": "0001-0023", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Calef. 220V", "codigo": "0001-0018", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Calef. 380V", "codigo": "0001-0024", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Calef. 220V", "codigo": "0001-0019", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Calef. 380V", "codigo": "0001-0025", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 25/1 Calef. 380V", "codigo": "0001-0026", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elevadora Inteligent 20 220V", "codigo": "0008-0001", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elevadora Inteligent 24 220V", "codigo": "0008-0028", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Tango Elevadora 14 MN 220V", "codigo": "0017-0111", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Tango Elev. 20 MN 220V", "codigo": "0017-0117", "estado": "hay", "entra": ""}]}, {"titulo": "Repuestos y Acesorios", "productos": [{"nombre": "KIT Rep. 1A Conj. Sensor De Flujo FL", "codigo": "0015-0286", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 1B Conj. Sensor De Flujo FLP", "codigo": "0015-0295", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 2 Microswitch Con Tornillos", "codigo": "0015-0287", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 3 Conj. Sensor RPX RP18 Press 20 22", "codigo": "0015-0225", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 4 Conj Sensor RPX RP25 30 26 200/270 302/03/27", "codigo": "0015-0289", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 5 Tapa Superior FL/SFL Con Microswitch", "codigo": "0015-0290", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 6 Tapa Superior FLP/SFL Tango C/MICRO", "codigo": "0015-0291", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 7 (vidrio Mirilla, Anillo, Juntas Y Tornillos", "codigo": "0015-0348", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 8 Llave De Paso Tango Con Media Union", "codigo": "0015-0293", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 9 Valv. Esferica Bronce Recta", "codigo": "0015-0338", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 10 Placa Elevadora Inteligente", "codigo": "0015-1442", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 11 Valv. Retencion 1", "codigo": "0015-0336", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 12 Valv. Retencion 1 1/2", "codigo": "0015-0337", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 13 O'ring 220 Esfera Plastica 1\" (10 Unid.)", "codigo": "0015-0352", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 14 Junta Para Flexible 1\" (10 Unid.)", "codigo": "0015-0351", "estado": "hay", "entra": ""}, {"nombre": "KIT Expositor De Repuestos Rowa (1)", "codigo": "0015-0219", "estado": "no", "entra": ""}, {"nombre": "Base Universal Rowa Para Bombas Y Presurizadores", "codigo": "0015-1573", "estado": "no", "entra": ""}]}, {"titulo": "Líquidos", "productos": [{"nombre": "Liquido Pasivador 1/2 L", "codigo": "0014-0005", "estado": "hay", "entra": ""}, {"nombre": "Liquido Pasivador 1 L", "codigo": "0014-0001", "estado": "hay", "entra": ""}]}, {"titulo": "Vávulas Descompresoras", "productos": [{"nombre": "Valv. Descompresora V2", "codigo": "0013-0001", "estado": "poco", "entra": ""}, {"nombre": "Valv. Descompresora V3", "codigo": "0013-0002", "estado": "no", "entra": ""}, {"nombre": "Valv. Descompresora V4", "codigo": "0013-0003", "estado": "no", "entra": ""}]}, {"titulo": "Controles Automáticos", "productos": [{"nombre": "Control Automatico FLP", "codigo": "0011-0001", "estado": "poco", "entra": ""}, {"nombre": "Control Automatico FL", "codigo": "0011-0002", "estado": "poco", "entra": ""}]}, {"titulo": "Mini RW 9", "productos": [{"nombre": "Presurizador Mini RW 9 Bronce 220V", "codigo": "0020-0021", "estado": "no", "entra": "principios de noviembre"}]}, {"titulo": "Bomb. Sumerg. Desagote", "productos": [{"nombre": "Bomba Sumergible Rowa RW Drain M 750 Inox F 1HP 220V", "codigo": "0023-0114", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Bomba Sumergible Rowa RW Drain M 1150 Inox F 1.5HP 220V", "codigo": "0023-0129", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain Q 400 F 0.5HP 220V", "codigo": "0023-0115", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain T 18/6-F 0.5HP 220V", "codigo": "0023-0105", "estado": "poco", "entra": "fines de octubre"}, {"nombre": "Bomba Sumergible Rowa RW Drain 800 Plus 1HP 220V", "codigo": "0023-0126", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain 1300 Plus 1.8HP 220V", "codigo": "0023-0125", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain 1500 Ultra 2HP 220V", "codigo": "0023-0127", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible RW Drain 2200 3HP 380V", "codigo": "0023-0128", "estado": "poco", "entra": "principios de noviembre"}]}, {"titulo": "Bombas Centrífugas Elevadoras", "productos": [{"nombre": "Electrobomba Elev. RW CPm 130 0.5HP 220V", "codigo": "0019-0027", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elev. RW CPm 146 0.75HP 220V", "codigo": "0019-0028", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elev. RW CPm 158 1HP 220V", "codigo": "0019-0029", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Periferica RW PR 60 0.5HP 220V", "codigo": "0019-0033", "estado": "hay", "entra": ""}]}, {"titulo": "Facilitador de Instalación", "productos": [{"nombre": "Flexible Inox. 1/2\" 20CM M-H", "codigo": "0710-0040", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 25CM M - H", "codigo": "0710-0041", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 30CM M-H", "codigo": "0710-0032", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 35CM M-H", "codigo": "0710-0042", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 40CM M - H", "codigo": "0710-0043", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 50CM M-H", "codigo": "0710-0044", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 30CM M - H D19MM", "codigo": "0710-0047", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 40CM M - H D19MM", "codigo": "0710-0050", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 30CM H-M", "codigo": "0710-0036", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 40CM H-M", "codigo": "0710-0039", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 50CM H-M", "codigo": "0710-0030", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 80CM H-M", "codigo": "0710-0033", "estado": "susp", "entra": ""}, {"nombre": "Flexible Inox. 1\" 50CM H-M", "codigo": "0710-0022", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1\" 80CM H-M", "codigo": "0710-0023", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1\" 100CM H-M", "codigo": "0710-0024", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/4\" 50CM H-M", "codigo": "0710-0025", "estado": "susp", "entra": ""}, {"nombre": "Flexible Inox. 1 1/4\" 100CM H-M", "codigo": "0710-0026", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/4\" 120CM H-M", "codigo": "0710-0027", "estado": "no", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/2\" 50CM H-M", "codigo": "0710-0028", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/2\" 100CM H-M", "codigo": "0710-0029", "estado": "poco", "entra": "principios de noviembre"}, {"nombre": "Flexible Inox. 2\" 60CM M - H D62MM", "codigo": "0710-0051", "estado": "susp", "entra": ""}]}, {"titulo": "Bombas Sumergibles SUB", "productos": [{"nombre": "Bomba Sumergible Rowa SUB 4RW Comp 56/7-M 1.1HP 220V", "codigo": "0023-0116", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 2/8G-M 0.5HP 220V", "codigo": "0023-0117", "estado": "susp", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 3/9G-M 0.75HP 220V", "codigo": "0023-0118", "estado": "no", "entra": "fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 4/8G-M 1HP 220V", "codigo": "0023-0104", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/9 G-M 1.5HP 220V", "codigo": "0023-0109", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 12/8G-M 2HP 220V", "codigo": "0023-0112", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 6/8G-T 1HP 380V", "codigo": "0023-0110", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/9G-T 1.5HP 380V", "codigo": "0023-0111", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 6/14G-T 2HP 380V", "codigo": "0023-0119", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/18G-T 3HP 380V", "codigo": "0023-0120", "estado": "susp", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 10/18G-T 4HP 380V", "codigo": "0023-0121", "estado": "poco", "entra": "fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 12/20G-T 5.5HP 380V", "codigo": "0023-0122", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 16/20G-T 7.5HP 380V", "codigo": "0023-0123", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 16/24G-T 10HP 380V", "codigo": "0023-0124", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW-ST 4/10 G-M 1HP220V", "codigo": "0023-0137", "estado": "no", "entra": "fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW-ST 4/14 G-M 1,5HP220V", "codigo": "0023-0138", "estado": "no", "entra": "fines de octubre"}, {"nombre": "Bomba Sumergible Rowa RW Drain Q 800 PL 1HP 220V", "codigo": "0023-0139", "estado": "no", "entra": "fines de enero"}, {"nombre": "Cable Sumergible Plano 4 X 1,5 MM2 Rollo 20 Metros", "codigo": "0852-0197", "estado": "poco", "entra": ""}, {"nombre": "Cable Sumergible Plano 4 X 1,5 MM2 Rollo 30 Metros", "codigo": "0852-0198", "estado": "no", "entra": ""}, {"nombre": "Cable Sumergible Plano 4 X 2,5 MM2 Rollo 30 Metros", "codigo": "0852-0199", "estado": "hay", "entra": ""}]}, {"titulo": "Vasos de Expansión", "productos": [{"nombre": "Vaso Expansion 24 LV", "codigo": "0700-0069", "estado": "poco", "entra": "mediados de noviembre"}, {"nombre": "Vaso Expansion 35 LH", "codigo": "0700-0036", "estado": "poco", "entra": "mediados de noviembre"}, {"nombre": "Vaso Expansion 60 LV", "codigo": "0700-0043", "estado": "poco", "entra": "mediados de noviembre"}, {"nombre": "Vaso Expansion 60 LH", "codigo": "0700-0042", "estado": "poco", "entra": "mediados de noviembre"}, {"nombre": "Vaso Expansion 100 LV", "codigo": "0700-0037", "estado": "poco", "entra": "mediados de noviembre"}, {"nombre": "Vaso Expansion 200 LV", "codigo": "0700-0060", "estado": "susp", "entra": ""}]}];
-const BAJADO = "2026-10-15T18:00:32";
+const SECCIONES = [{"titulo": "Presuriz. de Agua Tanque Elev.", "productos": [{"nombre": "Presurizador Tango SFL 9 220V T2", "codigo": "0006-0001", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 14 220V T2", "codigo": "0006-0002", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 20 220V T2", "codigo": "0006-0003", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango SFL 24 220V", "codigo": "0006-0197", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX SFL 26 220V", "codigo": "0004-0095", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Solar 14 220V", "codigo": "0006-0109", "estado": "poco", "entra": ""}]}, {"titulo": "Presuriz. de Agua Tanque Cist.", "productos": [{"nombre": "Presurizador Tango Press 20 220V T2", "codigo": "0018-0001", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Press 20 Wifi 220V", "codigo": "0018-0056", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Press 24 220V", "codigo": "0018-0054", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Tango Press 24 Wifi 220V", "codigo": "0018-0057", "estado": "hay", "entra": ""}, {"nombre": "Presurizador GM 24 EN Tandem, 2 x Tango Press 24 220V", "codigo": "0010-0699", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 26 220V", "codigo": "0005-0265", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 26 Wifi 220V", "codigo": "0005-0791", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 30 VF 220V", "codigo": "0005-0581", "estado": "poco", "entra": ""}, {"nombre": "GM 30 VF 220V", "codigo": "0010-0696", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 40 VF 220V", "codigo": "0005-0613", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 220V", "codigo": "0005-0705", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 301 e 35L 220V", "codigo": "0005-0732", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 24L 220V", "codigo": "0005-0759", "estado": "poco", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 100L 220V", "codigo": "0005-0760", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 270 VF 200L 220V", "codigo": "0005-0761", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 302 E 35L 220V", "codigo": "0005-0689", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Maxflow 302 E 50/60L 220V", "codigo": "0005-0723", "estado": "hay", "entra": ""}, {"nombre": "Presurizador Maxflow 303 VF 50/60L 220V", "codigo": "0005-0690", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Maxflow 327 VF 60L 220V", "codigo": "0005-0773", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 100L 220V", "codigo": "0005-0717", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 200 E 200L 220V", "codigo": "0005-0714", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 35 VF Compact 3X380V", "codigo": "0005-0682", "estado": "hay", "entra": ""}, {"nombre": "Presurizador MAX Press 360 VF Compact 3X380V", "codigo": "0005-0700", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Press 410 VF Compact 24LV 3 X 380V", "codigo": "0005-0612", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Press 410 VF Compact 60LV 3 X 380V", "codigo": "0005-0664", "estado": "poco", "entra": ""}, {"nombre": "Presurizador Press 510 VF Compact 35LV 3 X 380V", "codigo": "0005-0729", "estado": "no", "entra": ""}, {"nombre": "GM 350 VF 2 X 24L 220V", "codigo": "0010-0685", "estado": "poco", "entra": ""}, {"nombre": "GT 355 VF 2X24L 3X380V", "codigo": "0010-0686", "estado": "hay", "entra": ""}, {"nombre": "GT 365 VF 2 X 24L 3X380V", "codigo": "0010-0687", "estado": "no", "entra": ""}, {"nombre": "GT 415 VF 2 X 24L 3X380V", "codigo": "0010-0688", "estado": "poco", "entra": ""}, {"nombre": "GT 415 VF 2 X 60L 3X380V", "codigo": "0010-0689", "estado": "hay", "entra": ""}, {"nombre": "GT 515 VF 2 X 24/35L 3X380V", "codigo": "0010-0691", "estado": "hay", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2260 3X380V", "codigo": "0024-0102", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2280 3X380V", "codigo": "0024-0103", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 2350 3X380V", "codigo": "0024-0104", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3260 3X380V", "codigo": "0024-0105", "estado": "poco", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3280 3X380V", "codigo": "0024-0106", "estado": "no", "entra": ""}, {"nombre": "Grupo De Presion Rowa VSS 3350 3X380V", "codigo": "0024-0107", "estado": "poco", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2260 3X380V", "codigo": "0024-0108", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2280 3X380V", "codigo": "0024-0109", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 2350 3X380V", "codigo": "0024-0110", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3260 3X380V", "codigo": "0024-0111", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3280 3X380V", "codigo": "0024-0112", "estado": "no", "entra": ""}, {"nombre": "Grupo De Elevacion Rowa E-VSS 3350 3X380V", "codigo": "0024-0113", "estado": "no", "entra": ""}]}, {"titulo": "Electrob. Elevadoras y Recirc.", "productos": [{"nombre": "Electrobomba 5/1 3V Sanit. 220V", "codigo": "0002-0004", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 5/1 Sanit. Tempo 220V", "codigo": "0002-0489", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Sanit. 220V", "codigo": "0002-0006", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 Sanit. Tempo 220V", "codigo": "0002-0490", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Sanit. 220V", "codigo": "0002-0008", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 Sanit. Tempo 220V", "codigo": "0002-0491", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Sanit. 220V", "codigo": "0002-0013", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Sanit. 380V", "codigo": "0002-0017", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Sanit. 220V", "codigo": "0002-0014", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 15/1 Sanit. 380V", "codigo": "0002-0018", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Sanit. 220V", "codigo": "0002-0015", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Sanit. 380V", "codigo": "0002-0019", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 25/1 Sanit. 380V", "codigo": "0017-0089", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 4/1 3V Calef. 220V", "codigo": "0001-0001", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 5/1 3V Calef. 220V", "codigo": "0001-0004", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Calef. 220V", "codigo": "0001-0009", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 7/1 3V Normalizada 220V", "codigo": "0001-0007", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Calef. 220V", "codigo": "0001-0013", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 12/1 3V Normalizada 220V", "codigo": "0001-0011", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Calef. 220V", "codigo": "0001-0017", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 10/2 Calef. 380V", "codigo": "0001-0023", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Calef. 220V", "codigo": "0001-0018", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 15/1 Calef. 380V", "codigo": "0001-0024", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba 20/1 Calef. 220V", "codigo": "0001-0019", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 20/1 Calef. 380V", "codigo": "0001-0025", "estado": "poco", "entra": ""}, {"nombre": "Electrobomba 25/1 Calef. 380V", "codigo": "0001-0026", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elevadora Inteligent 20 220V", "codigo": "0008-0001", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elevadora Inteligent 24 220V", "codigo": "0008-0028", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Tango Elevadora 14 MN 220V", "codigo": "0017-0111", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Tango Elev. 20 MN 220V", "codigo": "0017-0117", "estado": "hay", "entra": ""}]}, {"titulo": "Repuestos y Acesorios", "productos": [{"nombre": "KIT Rep. 1A Conj. Sensor De Flujo FL", "codigo": "0015-0286", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 1B Conj. Sensor De Flujo FLP", "codigo": "0015-0295", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 2 Microswitch Con Tornillos", "codigo": "0015-0287", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 3 Conj. Sensor RPX RP18 Press 20 22", "codigo": "0015-0225", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 4 Conj Sensor RPX RP25 30 26 200/270 302/03/27", "codigo": "0015-0289", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 5 Tapa Superior FL/SFL Con Microswitch", "codigo": "0015-0290", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 6 Tapa Superior FLP/SFL Tango C/MICRO", "codigo": "0015-0291", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 7 (vidrio Mirilla, Anillo, Juntas Y Tornillos", "codigo": "0015-0348", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 8 Llave De Paso Tango Con Media Union", "codigo": "0015-0293", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 9 Valv. Esferica Bronce Recta", "codigo": "0015-0338", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 10 Placa Elevadora Inteligente", "codigo": "0015-1442", "estado": "no", "entra": ""}, {"nombre": "KIT Rep. 11 Valv. Retencion 1", "codigo": "0015-0336", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 12 Valv. Retencion 1 1/2", "codigo": "0015-0337", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 13 O'ring 220 Esfera Plastica 1\" (10 Unid.)", "codigo": "0015-0352", "estado": "hay", "entra": ""}, {"nombre": "KIT Rep. 14 Junta Para Flexible 1\" (10 Unid.)", "codigo": "0015-0351", "estado": "hay", "entra": ""}, {"nombre": "KIT Expositor De Repuestos Rowa (1)", "codigo": "0015-0219", "estado": "no", "entra": ""}, {"nombre": "Base Universal Rowa Para Bombas Y Presurizadores", "codigo": "0015-1573", "estado": "no", "entra": ""}]}, {"titulo": "Líquidos", "productos": [{"nombre": "Liquido Pasivador 1/2 L", "codigo": "0014-0005", "estado": "hay", "entra": ""}, {"nombre": "Liquido Pasivador 1 L", "codigo": "0014-0001", "estado": "hay", "entra": ""}]}, {"titulo": "Vávulas Descompresoras", "productos": [{"nombre": "Valv. Descompresora V2", "codigo": "0013-0001", "estado": "poco", "entra": ""}, {"nombre": "Valv. Descompresora V3", "codigo": "0013-0002", "estado": "no", "entra": ""}, {"nombre": "Valv. Descompresora V4", "codigo": "0013-0003", "estado": "no", "entra": ""}]}, {"titulo": "Controles Automáticos", "productos": [{"nombre": "Control Automatico FLP", "codigo": "0011-0001", "estado": "poco", "entra": ""}, {"nombre": "Control Automatico FL", "codigo": "0011-0002", "estado": "poco", "entra": ""}]}, {"titulo": "Mini RW 9", "productos": [{"nombre": "Presurizador Mini RW 9 Bronce 220V", "codigo": "0020-0021", "estado": "no", "entra": "Entra principios de noviembre"}]}, {"titulo": "Bomb. Sumerg. Desagote", "productos": [{"nombre": "Bomba Sumergible Rowa RW Drain M 750 Inox F 1HP 220V", "codigo": "0023-0114", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Bomba Sumergible Rowa RW Drain M 1150 Inox F 1.5HP 220V", "codigo": "0023-0129", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain Q 400 F 0.5HP 220V", "codigo": "0023-0115", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain T 18/6-F 0.5HP 220V", "codigo": "0023-0105", "estado": "poco", "entra": "Entra fines de octubre"}, {"nombre": "Bomba Sumergible Rowa RW Drain 800 Plus 1HP 220V", "codigo": "0023-0126", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain 1300 Plus 1.8HP 220V", "codigo": "0023-0125", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa RW Drain 1500 Ultra 2HP 220V", "codigo": "0023-0127", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible RW Drain 2200 3HP 380V", "codigo": "0023-0128", "estado": "poco", "entra": "Entra principios de noviembre"}]}, {"titulo": "Bombas Centrífugas Elevadoras", "productos": [{"nombre": "Electrobomba Elev. RW CPm 130 0.5HP 220V", "codigo": "0019-0027", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elev. RW CPm 146 0.75HP 220V", "codigo": "0019-0028", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Elev. RW CPm 158 1HP 220V", "codigo": "0019-0029", "estado": "hay", "entra": ""}, {"nombre": "Electrobomba Periferica RW PR 60 0.5HP 220V", "codigo": "0019-0033", "estado": "hay", "entra": ""}]}, {"titulo": "Facilitador de Instalación", "productos": [{"nombre": "Flexible Inox. 1/2\" 20CM M-H", "codigo": "0710-0040", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 25CM M - H", "codigo": "0710-0041", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 30CM M-H", "codigo": "0710-0032", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 35CM M-H", "codigo": "0710-0042", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 40CM M - H", "codigo": "0710-0043", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 50CM M-H", "codigo": "0710-0044", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 30CM M - H D19MM", "codigo": "0710-0047", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1/2\" 40CM M - H D19MM", "codigo": "0710-0050", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 30CM H-M", "codigo": "0710-0036", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 40CM H-M", "codigo": "0710-0039", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 50CM H-M", "codigo": "0710-0030", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 3/4\" 80CM H-M", "codigo": "0710-0033", "estado": "susp", "entra": ""}, {"nombre": "Flexible Inox. 1\" 50CM H-M", "codigo": "0710-0022", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1\" 80CM H-M", "codigo": "0710-0023", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1\" 100CM H-M", "codigo": "0710-0024", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/4\" 50CM H-M", "codigo": "0710-0025", "estado": "susp", "entra": ""}, {"nombre": "Flexible Inox. 1 1/4\" 100CM H-M", "codigo": "0710-0026", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/4\" 120CM H-M", "codigo": "0710-0027", "estado": "no", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/2\" 50CM H-M", "codigo": "0710-0028", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 1 1/2\" 100CM H-M", "codigo": "0710-0029", "estado": "poco", "entra": "Entra principios de noviembre"}, {"nombre": "Flexible Inox. 2\" 60CM M - H D62MM", "codigo": "0710-0051", "estado": "susp", "entra": ""}]}, {"titulo": "Bombas Sumergibles SUB", "productos": [{"nombre": "Bomba Sumergible Rowa SUB 4RW Comp 56/7-M 1.1HP 220V", "codigo": "0023-0116", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 2/8G-M 0.5HP 220V", "codigo": "0023-0117", "estado": "susp", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 3/9G-M 0.75HP 220V", "codigo": "0023-0118", "estado": "no", "entra": "Entra fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 4/8G-M 1HP 220V", "codigo": "0023-0104", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/9 G-M 1.5HP 220V", "codigo": "0023-0109", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 12/8G-M 2HP 220V", "codigo": "0023-0112", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 6/8G-T 1HP 380V", "codigo": "0023-0110", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/9G-T 1.5HP 380V", "codigo": "0023-0111", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 6/14G-T 2HP 380V", "codigo": "0023-0119", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 8/18G-T 3HP 380V", "codigo": "0023-0120", "estado": "susp", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 10/18G-T 4HP 380V", "codigo": "0023-0121", "estado": "poco", "entra": "Entra fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 12/20G-T 5.5HP 380V", "codigo": "0023-0122", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 16/20G-T 7.5HP 380V", "codigo": "0023-0123", "estado": "hay", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW 16/24G-T 10HP 380V", "codigo": "0023-0124", "estado": "no", "entra": ""}, {"nombre": "Bomba Sumergible Rowa SUB 4RW-ST 4/10 G-M 1HP220V", "codigo": "0023-0137", "estado": "no", "entra": "Entra fines de octubre"}, {"nombre": "Bomba Sumergible Rowa SUB 4RW-ST 4/14 G-M 1,5HP220V", "codigo": "0023-0138", "estado": "no", "entra": "Entra fines de octubre"}, {"nombre": "Bomba Sumergible Rowa RW Drain Q 800 PL 1HP 220V", "codigo": "0023-0139", "estado": "no", "entra": "Entra fines de enero de 2027"}, {"nombre": "Cable Sumergible Plano 4 X 1,5 MM2 Rollo 20 Metros", "codigo": "0852-0197", "estado": "poco", "entra": ""}, {"nombre": "Cable Sumergible Plano 4 X 1,5 MM2 Rollo 30 Metros", "codigo": "0852-0198", "estado": "no", "entra": ""}, {"nombre": "Cable Sumergible Plano 4 X 2,5 MM2 Rollo 30 Metros", "codigo": "0852-0199", "estado": "hay", "entra": ""}]}, {"titulo": "Vasos de Expansión", "productos": [{"nombre": "Vaso Expansion 24 LV", "codigo": "0700-0069", "estado": "poco", "entra": "Entra mediados de noviembre"}, {"nombre": "Vaso Expansion 35 LH", "codigo": "0700-0036", "estado": "poco", "entra": "Entra mediados de noviembre"}, {"nombre": "Vaso Expansion 60 LV", "codigo": "0700-0043", "estado": "poco", "entra": "Entra mediados de noviembre"}, {"nombre": "Vaso Expansion 60 LH", "codigo": "0700-0042", "estado": "poco", "entra": "Entra mediados de noviembre"}, {"nombre": "Vaso Expansion 100 LV", "codigo": "0700-0037", "estado": "poco", "entra": "Entra mediados de noviembre"}, {"nombre": "Vaso Expansion 200 LV", "codigo": "0700-0060", "estado": "susp", "entra": ""}]}];
+const BAJADO = "2026-10-16T18:00:33";
 const TEXTO = {hay: 'Hay', poco: 'Poco', no: 'Sin stock', susp: 'No disponible'};
 const lista = document.getElementById('lista');
 const buscar = document.getElementById('buscar');
-const btnSolo = document.getElementById('soloStock');
-const btnTodo = document.getElementById('verTodo');
-let soloConStock = false;
+const botones = {
+  todo: document.getElementById('fTodo'),
+  con: document.getElementById('fCon'),
+  sin: document.getElementById('fSin'),
+};
+let filtro = 'todo';
 
+// Normaliza para buscar: minusculas, sin acentos, sin guiones ni puntos.
+function normalizar(t) {
+  return String(t).toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[-_./]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// Precalcula el texto de busqueda de cada producto una sola vez.
+for (const s of SECCIONES) {
+  for (const p of s.productos) {
+    const base = normalizar(p.nombre + ' ' + p.codigo + ' ' + s.titulo);
+    p._busca = base;
+    p._compacto = base.replace(/ /g, '');
+  }
+}
+
+function escapar(t) {
+  return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function pasaFiltro(p) {
+  if (filtro === 'con') return p.estado === 'hay' || p.estado === 'poco';
+  if (filtro === 'sin') return p.estado === 'no' || p.estado === 'susp';
+  return true;
+}
+
+function coincide(p, palabras) {
+  if (!palabras.length) return true;
+  return palabras.every(function (w) {
+    return p._busca.indexOf(w) >= 0 || p._compacto.indexOf(w) >= 0;
+  });
+}
+
+function fila(p) {
+  const entra = p.entra ? '<div class="entra">' + escapar(p.entra) + '</div>' : '';
+  return '<div class="fila"><div class="prod"><b>' + escapar(p.nombre) +
+         '</b><small>' + escapar(p.codigo) + '</small></div>' +
+         '<span class="chip ' + p.estado + '">' + TEXTO[p.estado] + '</span>' + entra + '</div>';
+}
+
+function pintar() {
+  const palabras = normalizar(buscar.value).split(' ').filter(Boolean);
+  let html = '';
+  for (const s of SECCIONES) {
+    const productos = s.productos.filter(function (p) {
+      return pasaFiltro(p) && coincide(p, palabras);
+    });
+    if (!productos.length) continue;
+    const conStock = productos.filter(function (p) {
+      return p.estado === 'hay' || p.estado === 'poco';
+    }).length;
+    html += '<h2>' + escapar(s.titulo) + '<small>' + conStock + ' de ' +
+            productos.length + ' con stock</small></h2>' +
+            '<div class="caja">' + productos.map(fila).join('') + '</div>';
+  }
+  lista.innerHTML = html || '<p class="vacio">No hay productos que coincidan.</p>';
+}
+
+function elegir(nombre) {
+  filtro = nombre;
+  for (const clave in botones) {
+    botones[clave].setAttribute('aria-pressed', clave === nombre ? 'true' : 'false');
+  }
+  pintar();
+}
+
+// Edad del informe, contada desde la fecha de bajada.
 (function () {
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
   const b = new Date(BAJADO); b.setHours(0, 0, 0, 0);
@@ -131,45 +218,11 @@ let soloConStock = false;
   if (dias > 3) el.classList.add('viejo');
 })();
 
-function escapar(t) {
-  return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function fila(p) {
-  const entra = p.entra ? `<span class="entra">Entra a ${escapar(p.entra)}</span>` : '';
-  return `<div class="fila"><div class="prod"><b>${escapar(p.nombre)}</b><small>${escapar(p.codigo)}</small></div>` +
-         `<div class="est"><span class="chip ${p.estado}">${TEXTO[p.estado]}</span>${entra}</div></div>`;
-}
-
-function pintar() {
-  const texto = buscar.value.trim().toLowerCase();
-  let html = '';
-  for (const s of SECCIONES) {
-    const productos = s.productos.filter(p => {
-      if (soloConStock && !(p.estado === 'hay' || p.estado === 'poco')) return false;
-      if (!texto) return true;
-      return (p.nombre + ' ' + p.codigo).toLowerCase().includes(texto);
-    });
-    if (!productos.length) continue;
-    const conStock = productos.filter(p => p.estado === 'hay' || p.estado === 'poco').length;
-    html += `<h2>${escapar(s.titulo)}<small>${conStock} de ${productos.length} con stock</small></h2>` +
-            `<div class="caja">${productos.map(fila).join('')}</div>`;
-  }
-  lista.innerHTML = html || '<p class="vacio">No hay productos que coincidan.</p>';
-}
-
 buscar.addEventListener('input', pintar);
-btnSolo.addEventListener('click', () => {
-  soloConStock = true;
-  btnSolo.setAttribute('aria-pressed', 'true');
-  btnTodo.setAttribute('aria-pressed', 'false');
-  pintar();
-});
-btnTodo.addEventListener('click', () => {
-  soloConStock = false;
-  btnSolo.setAttribute('aria-pressed', 'false');
-  btnTodo.setAttribute('aria-pressed', 'true');
-  pintar();
-});
+botones.todo.addEventListener('click', function () { elegir('todo'); });
+botones.con.addEventListener('click', function () { elegir('con'); });
+botones.sin.addEventListener('click', function () { elegir('sin'); });
 pintar();
 </script>
+</body>
+</html>
